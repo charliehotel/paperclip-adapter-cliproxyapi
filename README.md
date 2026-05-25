@@ -22,9 +22,9 @@ You can install this adapter directly via the Paperclip UI:
 
 1. Open Paperclip and navigate to **Instance Settings** -> **Adapters**.
 2. Click **Install Adapter**.
-3. Select **Local Path** and enter the absolute path to this project directory:
+3. Select **Local Path** and enter the absolute path to where you cloned this repository:
    ```text
-   /Users/charliehotel/Dev/Project/paperclip-adapter-cliproxyapi
+   /path/to/paperclip-adapter-cliproxyapi
    ```
 4. Click **Install**. The adapter will compile and register under the type `cliproxyapi`.
 
