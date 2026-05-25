@@ -22,9 +22,16 @@ Paperclip UI 화면을 통해 플러그인 어댑터를 직접 등록할 수 있
 
 1. Paperclip 브라우저 화면의 **Instance Settings** -> **Adapters** 메뉴로 이동합니다.
 2. **Install Adapter** 버튼을 클릭합니다.
-3. **Local Path**를 선택하고 본 어댑터 저장소를 클론한 폴더의 절대 경로를 입력합니다:
+3. **Local Path**를 선택하고 본 저장소를 클론한 폴더의 전체 절대 경로를 입력합니다.
+
+   *예시 (macOS/Linux):*
    ```text
-   /path/to/paperclip-adapter-cliproxyapi
+   /Users/yourname/paperclip-adapter-cliproxyapi
+   ```
+
+   *예시 (Windows):*
+   ```text
+   C:\Users\yourname\paperclip-adapter-cliproxyapi
    ```
 4. **Install**을 클릭하면 컴파일 및 빌드가 자동으로 수행되며 `cliproxyapi` 타입의 어댑터가 등록됩니다.
 
