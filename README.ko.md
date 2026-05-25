@@ -2,7 +2,7 @@
 
 [🇺🇸 English Version](./README.md)
 
-[Paperclip](https://github.com/charliehotel/paperclip) 에이전트를 [CLIProxyAPI](https://github.com/charliehotel/cliproxyapi) 백엔드와 연동하기 위한 외부 어댑터 플러그인입니다. 로컬에서 구동되는 OpenAI 호환 프록시인 CLIProxyAPI를 통해 Google Gemini, Anthropic Claude, Antigravity 계열 모델을 Paperclip 에이전트의 구동 엔진으로 활용할 수 있습니다.
+[Paperclip](https://github.com/paperclipai/paperclip) 에이전트를 [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) 백엔드와 연동하기 위한 외부 어댑터 플러그인입니다. 로컬에서 구동되는 OpenAI 호환 프록시인 CLIProxyAPI를 통해 Google Gemini, Anthropic Claude, Antigravity 계열 모델을 Paperclip 에이전트의 구동 엔진으로 활용할 수 있습니다.
 
 ## 주요 기능
 

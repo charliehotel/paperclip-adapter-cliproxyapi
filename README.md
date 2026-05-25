@@ -2,7 +2,7 @@
 
 [🇰🇷 한국어 버전](./README.ko.md)
 
-An external adapter plugin for [Paperclip](https://github.com/charliehotel/paperclip) that integrates agents with [CLIProxyAPI](https://github.com/charliehotel/cliproxyapi). It serves as a local, OpenAI-compatible proxy allowing you to run Paperclip agents using Google Gemini, Anthropic Claude, and Antigravity models.
+An external adapter plugin for [Paperclip](https://github.com/paperclipai/paperclip) that integrates agents with [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI). It serves as a local, OpenAI-compatible proxy allowing you to run Paperclip agents using Google Gemini, Anthropic Claude, and Antigravity models.
 
 ## Features
 
