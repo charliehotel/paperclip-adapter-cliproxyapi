@@ -80,6 +80,19 @@ pnpm dev
 ### 4. Primary Model Selection & Environment Test
 ![Model Selection & Test](04_cliproxyapi_model_selection.png)
 
+## Release Notes
+
+<details>
+<summary><b>v0.1.1</b></summary>
+
+- **Context Preservation Fix (Phase 1):** Completely rewrote the `buildPrompt` logic in `execute.ts` to forward the full context provided by Paperclip.
+- **System Message Support:** The agent execution contract and `AGENTS.md` instructions are now correctly forwarded as a `system` message.
+- **Wake Payload Support:** Issue bodies, comments, task markdown, continuation summaries, and execution stages are now properly passed to the model.
+- **Tool-Call Loop Foundation:** Implemented a multi-turn conversation loop (up to 25 turns) to support tool calls and intermediate processing.
+- **Diagnostics Logging:** Added robust logging for context keys, prompt lengths, and turn counts.
+
+</details>
+
 ## License
 
 MIT

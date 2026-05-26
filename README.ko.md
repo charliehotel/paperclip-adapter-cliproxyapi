@@ -80,6 +80,19 @@ pnpm dev
 ### 4. 주 모델(Primary Model) 선택 및 연결 테스트 완료
 ![주 모델 선택 및 연결 테스트 완료](04_cliproxyapi_model_selection.png)
 
+## 릴리즈 노트
+
+<details>
+<summary><b>v0.1.1</b></summary>
+
+- **컨텍스트 유실 버그 수정 (Phase 1):** `execute.ts`의 `buildPrompt` 로직을 전면 재작성하여 Paperclip이 제공하는 전체 컨텍스트가 모델에 전달되도록 수정했습니다.
+- **시스템 메시지 지원:** 에이전트 실행 계약(execution contract)과 `AGENTS.md` 지침이 `system` 메시지로 올바르게 전달됩니다.
+- **Wake 페이로드 지원:** 이슈 본문, 댓글, 작업 마크다운, 이전 실행 요약(continuation summary) 및 실행 단계 정보가 모두 누락 없이 포함됩니다.
+- **도구 호출(Tool-Call) 루프 기반 마련:** 모델이 도구를 호출할 경우 대화가 끊기지 않도록 최대 25턴까지 지속되는 멀티 턴 루프를 구현했습니다.
+- **진단 로깅 강화:** 컨텍스트 키 목록, 프롬프트 길이, 턴 수 등을 기록하는 디버그 로그를 추가했습니다.
+
+</details>
+
 ## 라이선스
 
 MIT
