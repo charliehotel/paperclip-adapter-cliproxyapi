@@ -83,6 +83,25 @@ pnpm dev
 ## 릴리즈 노트
 
 <details>
+<summary><b>v0.1.3</b></summary>
+
+- **에이전트 인증 수정:** `supportsLocalAgentJwt`를 활성화하여 Paperclip API 호출이 `local-board`가 아닌 실행 에이전트로 귀속되도록 수정했습니다. 이로 인해 완료된 이슈가 다시 `todo`로 돌아가는 문제가 해결되었습니다.
+- **작업공간 문맥 수정:** 도구 호출 시 파일 경로와 명령어 실행이 Paperclip 서버 디렉터리가 아닌 실제 에이전트 실행 작업공간(`context.paperclipWorkspace.cwd`)을 기준으로 처리되도록 수정했습니다.
+- **진단 로깅:** 시작 로그에 `workspace.cwd`와 `authToken` 존재 여부를 추가했습니다.
+
+</details>
+
+<details>
+<summary><b>v0.1.2</b></summary>
+
+- **도구 실행 (Phase 2):** `read_file`, `list_directory`, `run_command`, `write_file`, `update_issue`, `add_comment` 총 6개 도구를 추가하여 LLM이 파일 시스템 및 Paperclip API와 직접 상호작용할 수 있도록 했습니다.
+- **Paperclip API 경로 수정:** `update_issue`와 `add_comment`가 잘못된 경로(`/issues/...`)를 사용하던 문제를 수정했습니다(`/api/issues/...`). 이 오류로 인해 404 응답이 발생하고 종결 흐름이 깨졌습니다.
+- **인증 헤더 포함:** 모든 Paperclip API 호출에 `Authorization: Bearer`, `X-Paperclip-Run-Id`, `Content-Type` 헤더가 포함됩니다.
+- **안전 장치:** 셸 명령어 실행 시 30초 타임아웃과 50K 자 출력 제한이 적용됩니다.
+
+</details>
+
+<details>
 <summary><b>v0.1.1</b></summary>
 
 - **컨텍스트 유실 버그 수정 (Phase 1):** `execute.ts`의 `buildPrompt` 로직을 전면 재작성하여 Paperclip이 제공하는 전체 컨텍스트가 모델에 전달되도록 수정했습니다.

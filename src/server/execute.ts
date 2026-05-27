@@ -12,6 +12,7 @@ import {
   asNumber,
 } from "@paperclipai/adapter-utils/server-utils";
 import fs from "node:fs/promises";
+import { TOOL_SCHEMAS, executeToolCall } from "./tools.js";
 
 const DEFAULT_BASE_URL = "http://127.0.0.1:8317/v1";
 const DEFAULT_MODEL = "agy-3.1-pro-high";
@@ -160,6 +161,11 @@ export async function execute(
   const contextKeys = Object.keys(ctx.context ?? {});
   ctx.onLog("stdout", `[cliproxyapi] context keys: ${contextKeys.join(", ")}\n`);
 
+  // Log workspace and auth diagnostics
+  const workspace = (ctx.context as Record<string, unknown>).paperclipWorkspace as Record<string, unknown> | undefined;
+  ctx.onLog("stdout", `[cliproxyapi] workspace.cwd=${workspace?.cwd ?? "(none)"}\n`);
+  ctx.onLog("stdout", `[cliproxyapi] authToken=${ctx.authToken ? "present" : "MISSING"}\n`);
+
   // Build messages array
   const messages: Array<{ role: string; content: string }> = [
     { role: "system", content: systemPrompt },
@@ -170,6 +176,7 @@ export async function execute(
   const requestBody: Record<string, unknown> = {
     model,
     messages,
+    tools: TOOL_SCHEMAS,
     temperature: asNumber(config.temperature as number, 0.2),
     stream: false,
   };
@@ -252,7 +259,7 @@ export async function execute(
       // Add assistant message with tool calls to conversation
       messages.push(message);
 
-      // Process each tool call
+      // Process each tool call — execute and collect results
       for (const toolCall of toolCalls) {
         const toolName = toolCall.function?.name ?? "unknown";
         const toolArgs = toolCall.function?.arguments ?? "{}";
@@ -263,16 +270,16 @@ export async function execute(
           `[cliproxyapi] tool_call: ${toolName}(${toolArgs.slice(0, 200)})\n`,
         );
 
-        // For now, we cannot execute tools locally — return a helpful error
-        // to the model so it can adapt. In Phase 2, this will be replaced
-        // with actual Paperclip API tool execution.
-        const toolResult = JSON.stringify({
-          error: "tool_execution_not_available",
-          message: `Tool '${toolName}' cannot be executed by the CLIProxyAPI adapter. ` +
-            `Use the Paperclip API directly via HTTP calls to PAPERCLIP_API_URL ` +
-            `to read files, update issues, and manage dispositions. ` +
-            `Or complete your task using only the information provided in the wake payload.`,
+        // Execute the tool via the registered handler
+        const toolResult = await executeToolCall(ctx, {
+          name: toolName,
+          arguments: toolArgs,
         });
+
+        ctx.onLog(
+          "stdout",
+          `[cliproxyapi] tool_result(${toolName}): ${toolResult.slice(0, 300)}\n`,
+        );
 
         messages.push({
           role: "tool",

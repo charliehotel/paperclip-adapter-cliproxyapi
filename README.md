@@ -83,6 +83,25 @@ pnpm dev
 ## Release Notes
 
 <details>
+<summary><b>v0.1.3</b></summary>
+
+- **Agent Authentication Fix:** Enabled `supportsLocalAgentJwt` so that API calls are properly attributed to the agent instead of `local-board`. This prevents completed issues from reverting to `todo`.
+- **Workspace Context Fix:** Tool calls now resolve file paths and execute commands relative to the actual agent execution workspace (`context.paperclipWorkspace.cwd`) rather than the Paperclip server directory.
+- **Diagnostic Logging:** Added `workspace.cwd` and `authToken` presence to startup logs.
+
+</details>
+
+<details>
+<summary><b>v0.1.2</b></summary>
+
+- **Tool Execution (Phase 2):** Added 6 tools — `read_file`, `list_directory`, `run_command`, `write_file`, `update_issue`, `add_comment` — enabling the LLM to interact with the file system and Paperclip API.
+- **Paperclip API Path Fix:** Fixed `update_issue` and `add_comment` using wrong paths (`/issues/...` → `/api/issues/...`), which caused 404 errors and broken disposition flow.
+- **Auth Headers:** All Paperclip API calls now include `Authorization: Bearer`, `X-Paperclip-Run-Id`, and `Content-Type` headers.
+- **Safety Guards:** Shell commands are sandboxed with 30s timeout and 50K character output limit.
+
+</details>
+
+<details>
 <summary><b>v0.1.1</b></summary>
 
 - **Context Preservation Fix (Phase 1):** Completely rewrote the `buildPrompt` logic in `execute.ts` to forward the full context provided by Paperclip.
